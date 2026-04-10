@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.exceptions import global_exception_handler
-from app.api.v1 import cv_router, forecast_router, anomaly_router, workorder_router
+from app.api.v1 import cv_router, forecast_router, anomaly_router, workorder_router, data_router
 
 def create_app() -> FastAPI:
     """系统入口工厂函数"""
@@ -32,6 +32,7 @@ def create_app() -> FastAPI:
     app.include_router(forecast_router.router, prefix=f"{settings.API_V1_STR}/forecast", tags=["生境预测"])
     app.include_router(anomaly_router.router, prefix=f"{settings.API_V1_STR}/anomaly", tags=["风浪预警"])
     app.include_router(workorder_router.router, prefix=f"{settings.API_V1_STR}/workorder", tags=["工单流转"])
+    app.include_router(data_router.router, prefix=f"{settings.API_V1_STR}/data", tags=["历史NC数据提取"])
 
     return app
 
